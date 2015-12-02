@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>ImageProc</class>
+ <widget class="QMainWindow" name="ImageProc">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>数字图像处理展示</string>
+  </property>
+  <widget class="QWidget" name="centralwidget"/>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>800</width>
+     <height>30</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menu_File">
+    <property name="title">
+     <string>文件(&amp;F)</string>
+    </property>
+    <addaction name="action_Open"/>
+    <addaction name="action_Save"/>
+    <addaction name="action_Reset"/>
+    <addaction name="separator"/>
+    <addaction name="action_Quit"/>
+   </widget>
+   <widget class="QMenu" name="menu_Edit">
+    <property name="title">
+     <string>编辑(&amp;E)</string>
+    </property>
+    <widget class="QMenu" name="menu_Nonlinear">
+     <property name="title">
+      <string>非线性变换(&amp;N)</string>
+     </property>
+     <addaction name="action_Equali"/>
+     <addaction name="action_Slicing"/>
+     <addaction name="action_GrayEx"/>
+    </widget>
+    <widget class="QMenu" name="menu_Linear">
+     <property name="title">
+      <string>线性变换(&amp;L)</string>
+     </property>
+     <addaction name="action_Opposition"/>
+     <addaction name="action_Highlight"/>
+     <addaction name="action_Darken"/>
+    </widget>
+    <widget class="QMenu" name="menu_Smooth">
+     <property name="title">
+      <string>图像平滑(&amp;M)</string>
+     </property>
+     <addaction name="action_avgSmooth"/>
+     <addaction name="action_midSmooth"/>
+     <addaction name="action_knearSmooth"/>
+    </widget>
+    <widget class="QMenu" name="menu_Sharp">
+     <property name="title">
+      <string>图像锐化(&amp;H)</string>
+     </property>
+     <addaction name="action_RobertsSharp"/>
+     <addaction name="action_SobelSharp"/>
+     <addaction name="action_LaplaceSharp"/>
+    </widget>
+    <addaction name="action_Plane"/>
+    <addaction name="separator"/>
+    <addaction name="menu_Linear"/>
+    <addaction name="menu_Nonlinear"/>
+    <addaction name="separator"/>
+    <addaction name="action_SpaceAlter"/>
+    <addaction name="separator"/>
+    <addaction name="menu_Smooth"/>
+    <addaction name="menu_Sharp"/>
+    <addaction name="action_Template"/>
+    <addaction name="separator"/>
+    <addaction name="actionBMP2TXT"/>
+   </widget>
+   <addaction name="menu_File"/>
+   <addaction name="menu_Edit"/>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <action name="action_Open">
+   <property name="text">
+    <string>打开(&amp;O)</string>
+   </property>
+  </action>
+  <action name="action_Save">
+   <property name="text">
+    <string>保存(&amp;S)</string>
+   </property>
+  </action>
+  <action name="action_Quit">
+   <property name="text">
+    <string>退出(&amp;Q)</string>
+   </property>
+  </action>
+  <action name="action_2">
+   <property name="text">
+    <string>显示</string>
+   </property>
+  </action>
+  <action name="action_I">
+   <property name="text">
+    <string>灰度信息(&amp;I)</string>
+   </property>
+  </action>
+  <action name="action_Plane">
+   <property name="text">
+    <string>位平面显示(&amp;P)</string>
+   </property>
+  </action>
+  <action name="actionBMP2TXT">
+   <property name="text">
+    <string>BMP2TXT(&amp;B)</string>
+   </property>
+  </action>
+  <action name="action_Equali">
+   <property name="text">
+    <string>直方图均衡化(&amp;E)</string>
+   </property>
+  </action>
+  <action name="action_Highlight">
+   <property name="text">
+    <string>加亮(&amp;H)</string>
+   </property>
+  </action>
+  <action name="action_Opposition">
+   <property name="text">
+    <string>反相(&amp;O)</string>
+   </property>
+  </action>
+  <action name="action_Darken">
+   <property name="text">
+    <string>加暗(&amp;D)</string>
+   </property>
+  </action>
+  <action name="action_Reset">
+   <property name="text">
+    <string>重置(&amp;R)</string>
+   </property>
+  </action>
+  <action name="action_Slicing">
+   <property name="text">
+    <string>灰度窗口变换(&amp;S)</string>
+   </property>
+  </action>
+  <action name="action_GrayEx">
+   <property name="text">
+    <string>灰度扩展(&amp;G)</string>
+   </property>
+  </action>
+  <action name="action_SpaceAlter">
+   <property name="text">
+    <string>空间变换(&amp;S)</string>
+   </property>
+  </action>
+  <action name="action_avgSmooth">
+   <property name="text">
+    <string>均值平滑(&amp;A)</string>
+   </property>
+  </action>
+  <action name="action_midSmooth">
+   <property name="text">
+    <string>中值平滑(&amp;M)</string>
+   </property>
+  </action>
+  <action name="action_knearSmooth">
+   <property name="text">
+    <string>K邻域平滑(&amp;K)</string>
+   </property>
+  </action>
+  <action name="action_RobertsSharp">
+   <property name="text">
+    <string>Roberts锐化(&amp;R)</string>
+   </property>
+  </action>
+  <action name="action_SobelSharp">
+   <property name="text">
+    <string>Sobel锐化(&amp;S)</string>
+   </property>
+  </action>
+  <action name="action_LaplaceSharp">
+   <property name="text">
+    <string>拉普拉斯锐化(&amp;L)</string>
+   </property>
+  </action>
+  <action name="action_Template">
+   <property name="text">
+    <string>模板卷积(&amp;T)</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

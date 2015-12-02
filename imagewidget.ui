@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>ImageWidget</class>
+ <widget class="QWidget" name="ImageWidget">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>710</width>
+    <height>442</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>图像处理</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QLabel" name="_imageBox">
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <layout class="QGridLayout" name="gridLayout">
+     <item row="0" column="3">
+      <widget class="QSpinBox" name="_heightEdit"/>
+     </item>
+     <item row="0" column="2">
+      <widget class="QLabel" name="_heightLab">
+       <property name="text">
+        <string>量化后高度(&amp;H)：</string>
+       </property>
+       <property name="buddy">
+        <cstring>_heightEdit</cstring>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="QSpinBox" name="_widthEdit"/>
+     </item>
+     <item row="0" column="0">
+      <widget class="QLabel" name="_widthLab">
+       <property name="text">
+        <string>量化后宽度(&amp;W)：</string>
+       </property>
+       <property name="buddy">
+        <cstring>_widthEdit</cstring>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="QSpinBox" name="_quanEdit"/>
+     </item>
+     <item row="1" column="0">
+      <widget class="QLabel" name="_quanLab">
+       <property name="text">
+        <string>通道取样数(&amp;C)：</string>
+       </property>
+       <property name="buddy">
+        <cstring>_quanEdit</cstring>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="0" colspan="4">
+      <widget class="QPushButton" name="_showBtn">
+       <property name="text">
+        <string>显示(&amp;S)</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="2">
+      <widget class="QLabel" name="_threLab">
+       <property name="text">
+        <string>二值化阈值(&amp;T)：</string>
+       </property>
+       <property name="buddy">
+        <cstring>_threEdit</cstring>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="3">
+      <widget class="QSpinBox" name="_threEdit"/>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
