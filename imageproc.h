@@ -27,8 +27,17 @@ public slots:
     void spaceAlter();
     void doSpaceAlter(double w, double h, int angle, int x, int y, bool type);
 
+    void avgSmooth();
+    void boxSmooth();
+    void gaussSmooth();
+
+    void sobelXSharp();
+    void sobelYSharp();
+    void laplaceSharp();
+    void lapExSharp();
+
     void convolutionTemplate();
-    void doConvolutionTemplate(std::vector<std::vector<int>> mart, int x, int y);
+    void doConvolutionTemplate(std::vector<std::vector<int> > mart, int x, int y, double k);
 
 private:
     ImageWidget *_imgWidget;

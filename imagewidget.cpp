@@ -19,7 +19,7 @@ ImageWidget::ImageWidget(QWidget *parent) : QWidget(parent)
     _threEdit->setValue(-1);
     connect(_showBtn, &QPushButton::clicked, this, &ImageWidget::showImage);
     _imageBox->setAlignment(Qt::AlignCenter);
-    _imageBox->setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored);
+    //_imageBox->setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored);
     _width = _height = _quanNum = _threNum = 0;
 }
 

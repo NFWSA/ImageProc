@@ -6,14 +6,14 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>360</width>
-    <height>292</height>
+    <width>415</width>
+    <height>332</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>模板卷积</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout_5">
+  <layout class="QVBoxLayout" name="verticalLayout_3">
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout_5">
      <item>
@@ -91,6 +91,33 @@
            </property>
            <property name="maximum">
             <number>10</number>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_7">
+         <item>
+          <widget class="QLabel" name="_kLab">
+           <property name="text">
+            <string>系数(&amp;K)：</string>
+           </property>
+           <property name="buddy">
+            <cstring>_kEdit</cstring>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QDoubleSpinBox" name="_kEdit">
+           <property name="minimum">
+            <double>-10.000000000000000</double>
+           </property>
+           <property name="maximum">
+            <double>10.000000000000000</double>
+           </property>
+           <property name="value">
+            <double>1.000000000000000</double>
            </property>
           </widget>
          </item>
@@ -262,6 +289,7 @@
   <tabstop>_widthEdit</tabstop>
   <tabstop>_heightEdit</tabstop>
   <tabstop>_weightEdit</tabstop>
+  <tabstop>_kEdit</tabstop>
   <tabstop>_xEdit</tabstop>
   <tabstop>_yEdit</tabstop>
   <tabstop>_table</tabstop>

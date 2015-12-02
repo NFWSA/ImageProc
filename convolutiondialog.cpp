@@ -91,6 +91,6 @@ void ConvolutionDialog::emitConvolution()
         }
         vec.push_back(ivec);
     }
-    emit convolutionMsg(vec, _centerX - 1, _centerY - 1);
+    emit convolutionMsg(vec, _centerX - 1, _centerY - 1, _kEdit->value());
 }
 

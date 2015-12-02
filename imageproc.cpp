@@ -36,6 +36,15 @@ ImageProc::ImageProc(QWidget *parent) : QMainWindow(parent)
 
     connect(action_SpaceAlter, &QAction::triggered, this, &ImageProc::spaceAlter);
 
+    connect(action_avgSmooth, &QAction::triggered, this, &ImageProc::avgSmooth);
+    connect(action_boxSmooth, &QAction::triggered, this, &ImageProc::boxSmooth);
+    connect(action_gaussSmooth, &QAction::triggered, this, &ImageProc::gaussSmooth);
+
+    connect(action_SobelXSharp, &QAction::triggered, this, &ImageProc::sobelXSharp);
+    connect(action_SobelYSharp, &QAction::triggered, this, &ImageProc::sobelYSharp);
+    connect(action_LaplaceSharp, &QAction::triggered, this, &ImageProc::laplaceSharp);
+    connect(action_LapExSharp, &QAction::triggered, this, &ImageProc::lapExSharp);
+
     connect(action_Template, &QAction::triggered, this, &ImageProc::convolutionTemplate);
 
     connect(action_Plane, &QAction::triggered, this, &ImageProc::showBitPlane);
@@ -182,6 +191,68 @@ void ImageProc::doSpaceAlter(double w, double h, int angle, int x, int y, bool t
     _imgWidget->returnModifImage();
 }
 
+void ImageProc::avgSmooth()
+{
+    std::vector<std::vector<int>> vec{
+        {1, 1, 1},
+        {1, 1, 1},
+        {1, 1, 1}
+    };
+    doConvolutionTemplate(vec, 1, 1, 1.0/9.0);
+}
+
+void ImageProc::boxSmooth()
+{
+    std::vector<std::vector<int>> vec{{1, 1, 1}};
+    doConvolutionTemplate(vec, 1, 1, 0.3333);
+}
+
+void ImageProc::gaussSmooth()
+{
+    std::vector<std::vector<int>> vec{{1, 2, 1}};
+    doConvolutionTemplate(vec, 1, 1, 0.25);
+}
+
+void ImageProc::sobelXSharp()
+{
+    std::vector<std::vector<int>> vec{
+        {1, 0, -1},
+        {2, 0, -2},
+        {1, 0, -1}
+    };
+    doConvolutionTemplate(vec, 1, 1, 1);
+}
+
+void ImageProc::sobelYSharp()
+{
+    std::vector<std::vector<int>> vec{
+        {-1, -2, -1},
+        {0, 0, 0},
+        {1, 2, 1}
+    };
+    doConvolutionTemplate(vec, 1, 1, 1);
+}
+
+void ImageProc::laplaceSharp()
+{
+    std::vector<std::vector<int>> vec{
+        {0, -1, 0},
+        {-1, 4, -1},
+        {0, -1, 0}
+    };
+    doConvolutionTemplate(vec, 1, 1, 1);
+}
+
+void ImageProc::lapExSharp()
+{
+    std::vector<std::vector<int>> vec{
+        {0, -1, 0},
+        {-1, 5, -1},
+        {0, -1, 0}
+    };
+    doConvolutionTemplate(vec, 1, 1, 1);
+}
+
 void ImageProc::convolutionTemplate()
 {
     auto *dialog = new ConvolutionDialog;
@@ -189,7 +260,7 @@ void ImageProc::convolutionTemplate()
     dialog->exec();
 }
 
-void ImageProc::doConvolutionTemplate(std::vector<std::vector<int> > mart, int x, int y)
+void ImageProc::doConvolutionTemplate(std::vector<std::vector<int> > mart, int x, int y, double k)
 {
     QImage &img = _imgWidget->getModifImage();
     if(img.isNull())
@@ -203,6 +274,7 @@ void ImageProc::doConvolutionTemplate(std::vector<std::vector<int> > mart, int x
                     sum += qGray(_imgWidget->getPixel(i+dx-x, j+dy-y)) * mart[dx][dy];
                 }
             }
+            sum *= k;
             sum = sum>255 ? 255 : (sum<0 ? 0 : sum);
             newimg.setPixel(i, j, qRgb(sum, sum, sum));
         }

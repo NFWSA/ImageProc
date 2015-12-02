@@ -11,7 +11,7 @@ public:
     explicit ConvolutionDialog(QWidget *parent = 0);
 
 signals:
-    void convolutionMsg(std::vector<std::vector<int>> mart, int x, int y);
+    void convolutionMsg(std::vector<std::vector<int>> mart, int x, int y, double k);
 
 public slots:
     void sizeChange(int ignore);

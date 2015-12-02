@@ -58,16 +58,17 @@
       <string>图像平滑(&amp;M)</string>
      </property>
      <addaction name="action_avgSmooth"/>
-     <addaction name="action_midSmooth"/>
-     <addaction name="action_knearSmooth"/>
+     <addaction name="action_boxSmooth"/>
+     <addaction name="action_gaussSmooth"/>
     </widget>
     <widget class="QMenu" name="menu_Sharp">
      <property name="title">
       <string>图像锐化(&amp;H)</string>
      </property>
-     <addaction name="action_RobertsSharp"/>
-     <addaction name="action_SobelSharp"/>
+     <addaction name="action_SobelXSharp"/>
+     <addaction name="action_SobelYSharp"/>
      <addaction name="action_LaplaceSharp"/>
+     <addaction name="action_LapExSharp"/>
     </widget>
     <addaction name="action_Plane"/>
     <addaction name="separator"/>
@@ -166,24 +167,24 @@
     <string>均值平滑(&amp;A)</string>
    </property>
   </action>
-  <action name="action_midSmooth">
+  <action name="action_boxSmooth">
    <property name="text">
-    <string>中值平滑(&amp;M)</string>
+    <string>矩形窗平均平滑(&amp;B)</string>
    </property>
   </action>
-  <action name="action_knearSmooth">
+  <action name="action_gaussSmooth">
    <property name="text">
-    <string>K邻域平滑(&amp;K)</string>
+    <string>高斯平滑(&amp;G)</string>
    </property>
   </action>
-  <action name="action_RobertsSharp">
+  <action name="action_LapExSharp">
    <property name="text">
-    <string>Roberts锐化(&amp;R)</string>
+    <string>拉普拉斯增强锐化(&amp;E)</string>
    </property>
   </action>
-  <action name="action_SobelSharp">
+  <action name="action_SobelXSharp">
    <property name="text">
-    <string>Sobel锐化(&amp;S)</string>
+    <string>SobelX锐化(&amp;X)</string>
    </property>
   </action>
   <action name="action_LaplaceSharp">
@@ -194,6 +195,11 @@
   <action name="action_Template">
    <property name="text">
     <string>模板卷积(&amp;T)</string>
+   </property>
+  </action>
+  <action name="action_SobelYSharp">
+   <property name="text">
+    <string>SobelY锐化(&amp;Y)</string>
    </property>
   </action>
  </widget>
