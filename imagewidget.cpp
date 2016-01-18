@@ -5,8 +5,6 @@
 #include <QString>
 #include <QFileDialog>
 
-#include <QDebug>
-
 ImageWidget::ImageWidget(QWidget *parent) : QWidget(parent)
 {
     setupUi(this);

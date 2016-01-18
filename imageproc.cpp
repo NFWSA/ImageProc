@@ -6,7 +6,11 @@
 #include "convolutiondialog.h"
 #include <QHBoxLayout>
 #include <QInputDialog>
-#include <QDebug>
+#include <QFileDialog>
+#include <fstream>
+#include <cmath>
+
+const double PI = 3.141592653;
 
 ImageProc::ImageProc(QWidget *parent) : QMainWindow(parent)
 {
@@ -25,6 +29,8 @@ ImageProc::ImageProc(QWidget *parent) : QMainWindow(parent)
     connect(action_Save, &QAction::triggered, _imgWidget, &ImageWidget::saveFile);
     connect(action_Reset, &QAction::triggered, _imgWidget, &ImageWidget::resetImage);
     connect(action_Quit, &QAction::triggered, this, &QMainWindow::close);
+
+    connect(action_Plane, &QAction::triggered, this, &ImageProc::showBitPlane);
 
     connect(action_Opposition, &QAction::triggered, this, &ImageProc::oppoImage);
     connect(action_Highlight, &QAction::triggered, this, &ImageProc::highImage);
@@ -47,7 +53,7 @@ ImageProc::ImageProc(QWidget *parent) : QMainWindow(parent)
 
     connect(action_Template, &QAction::triggered, this, &ImageProc::convolutionTemplate);
 
-    connect(action_Plane, &QAction::triggered, this, &ImageProc::showBitPlane);
+    connect(action_BMP2TXT, &QAction::triggered, this, &ImageProc::bmp2txt);
 }
 
 void ImageProc::showBitPlane()
@@ -152,20 +158,20 @@ void ImageProc::doSpaceAlter(double w, double h, int angle, int x, int y, bool t
                 int dx = di, dy = dj;
                 di = di - dx;
                 dj = dj - dy;
-                int d00 = qGray(_imgWidget->getPixel(dx, dy)),
-                        d01 = qGray(_imgWidget->getPixel(dx, dy + 1)),
-                        d10 = qGray(_imgWidget->getPixel(dx + 1, dy)),
-                        d11 = qGray(_imgWidget->getPixel(dx + 1, dy + 1)),
-                        a00 = qAlpha(_imgWidget->getPixel(dx, dy)),
-                        a01 = qAlpha(_imgWidget->getPixel(dx, dy + 1)),
-                        a10 = qAlpha(_imgWidget->getPixel(dx + 1, dy)),
-                        a11 = qAlpha(_imgWidget->getPixel(dx + 1, dy + 1));
                 if(type){
                     dx = di<0.5 ? dx : dx+1;
                     dy = dj<0.5 ? dy : dy+1;
                     newimg.setPixel(i, j, _imgWidget->getPixel(dx, dy));
                 }
                 else{
+                    int d00 = qGray(_imgWidget->getPixel(dx, dy)),
+                            d01 = qGray(_imgWidget->getPixel(dx, dy + 1)),
+                            d10 = qGray(_imgWidget->getPixel(dx + 1, dy)),
+                            d11 = qGray(_imgWidget->getPixel(dx + 1, dy + 1)),
+                            a00 = qAlpha(_imgWidget->getPixel(dx, dy)),
+                            a01 = qAlpha(_imgWidget->getPixel(dx, dy + 1)),
+                            a10 = qAlpha(_imgWidget->getPixel(dx + 1, dy)),
+                            a11 = qAlpha(_imgWidget->getPixel(dx + 1, dy + 1));
                     int gray = (d10-d00)*di + (d01-d00)*dj + (d11+d00-d10-d01)*di*dj + d00, alpha = (a00+a01+a10+a11)/4;
                     gray = gray>255 ? 255 : (gray<0 ? 0 : gray);
                     alpha = alpha>255 ? 255 : (alpha<0 ? 0 : alpha);
@@ -176,8 +182,49 @@ void ImageProc::doSpaceAlter(double w, double h, int angle, int x, int y, bool t
         img = newimg;
     }
     if(angle!=0){
-        //todo : do
-
+        double dsx = (img.width() - 1) / 2.0, dsy = (img.height() - 1) / 2.0;
+        double dl1 = std::sqrt(dsx * dsx + dsy * dsy), dl2 = dl1;
+        double dr1 = std::asin(dsy / dl1)<0 ? -std::acos(-dsx / dl1) : std::acos(-dsx / dl1),
+                dr2 = std::asin(dsy / dl2)<0 ? -std::acos(dsx / dl2) : std::acos(dsx / dl2);
+        double dra = angle / 180.0 * PI;
+        dr1 -= dra;
+        dr2 -= dra;
+        double dx1 = std::abs(dl1 * std::cos(dr1)), dy1 = std::abs(dl1 * std::sin(dr1)),
+                dx2 = std::abs(dl2 * std::cos(dr2)), dy2 = std::abs(dl2 * std::sin(dr2));
+        int dw = std::ceil(2 * (dx1<dx2 ? dx2 : dx1)), dh = std::ceil(2 * (dy1<dy2 ? dy2 : dy1));
+        QImage newimg(dw, dh, QImage::Format_ARGB32);
+        double ddx = (dw - 1) / 2.0, ddy = (dh - 1) / 2.0;
+        for(int i=0; i<newimg.width(); ++i){
+            for(int j=0; j<newimg.height(); ++j){
+                double dl = std::sqrt((i - ddx) * (i - ddx) + (j - ddy) * (j - ddy)),
+                        dr = std::asin((j - ddy) / dl)<0 ? -std::acos((i - ddx) / dl) : std::acos((i - ddx) / dl);
+                dr -= dra;
+                double di = dsx + dl * std::cos(dr), dj = dsy + dl * std::sin(dr);
+                int dx = di, dy = dj;
+                di = di - dx;
+                dj = dj - dy;
+                if(type){
+                    dx = di<0.5 ? dx : dx+1;
+                    dy = dj<0.5 ? dy : dy+1;
+                    newimg.setPixel(i, j, _imgWidget->getPixel(dx, dy));
+                }
+                else{
+                    int d00 = qGray(_imgWidget->getPixel(dx, dy)),
+                            d01 = qGray(_imgWidget->getPixel(dx, dy + 1)),
+                            d10 = qGray(_imgWidget->getPixel(dx + 1, dy)),
+                            d11 = qGray(_imgWidget->getPixel(dx + 1, dy + 1)),
+                            a00 = qAlpha(_imgWidget->getPixel(dx, dy)),
+                            a01 = qAlpha(_imgWidget->getPixel(dx, dy + 1)),
+                            a10 = qAlpha(_imgWidget->getPixel(dx + 1, dy)),
+                            a11 = qAlpha(_imgWidget->getPixel(dx + 1, dy + 1));
+                    int gray = (d10-d00)*di + (d01-d00)*dj + (d11+d00-d10-d01)*di*dj + d00, alpha = (a00+a01+a10+a11)/4;
+                    gray = gray>255 ? 255 : (gray<0 ? 0 : gray);
+                    alpha = alpha>255 ? 255 : (alpha<0 ? 0 : alpha);
+                    newimg.setPixel(i, j, qRgba(gray, gray, gray, alpha));
+                }
+            }
+        }
+        img = newimg;
     }
     if(x!=0 || y!=0){
         QImage newimg(img.width(), img.height(), QImage::Format_ARGB32);
@@ -281,4 +328,26 @@ void ImageProc::doConvolutionTemplate(std::vector<std::vector<int> > mart, int x
     }
     img = newimg;
     _imgWidget->returnModifImage();
+}
+
+const QString grayStr("MXKGBA@$#*21/;. ");
+//本字符串测试随手所写，未进行细致构造
+void ImageProc::bmp2txt()
+{
+    QImage img = _imgWidget->getImage();
+    if(img.isNull())
+        return;
+    QString filename = QFileDialog::getSaveFileName(this, tr("保存txt文件"), tr("."), tr("txt File(*.txt)"));
+    std::ofstream file(filename.toStdString().c_str());
+    if(!file.is_open())
+        return;
+    QString str;
+    for(int i=0; i<img.height(); ++i){
+        for(int j=0; j<img.width(); ++j){
+            str += grayStr.at(qGray(img.pixel(j, i)) / (256 / grayStr.size()));
+        }
+        str += '\n';
+    }
+    file << str.toStdString();
+    file.close();
 }

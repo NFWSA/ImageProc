@@ -39,6 +39,8 @@ public slots:
     void convolutionTemplate();
     void doConvolutionTemplate(std::vector<std::vector<int> > mart, int x, int y, double k);
 
+    void bmp2txt();
+
 private:
     ImageWidget *_imgWidget;
     GrayInfoWidget *_grayWidget;

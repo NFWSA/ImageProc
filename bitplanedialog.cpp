@@ -1,7 +1,6 @@
 #include "bitplanedialog.h"
 #include <QImage>
 #include <QColor>
-#include <QDebug>
 
 BitPlaneDialog::BitPlaneDialog(QWidget *parent) : QDialog(parent)
 {

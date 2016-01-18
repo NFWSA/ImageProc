@@ -15,7 +15,6 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        mainwindow.cpp \
     grayinfowidget.cpp \
     imagewidget.cpp \
     imageproc.cpp \
@@ -23,8 +22,7 @@ SOURCES += main.cpp\
     spacealter.cpp \
     convolutiondialog.cpp
 
-HEADERS  += mainwindow.h \
-    grayinfowidget.h \
+HEADERS  += grayinfowidget.h \
     imagewidget.h \
     imageproc.h \
     bitplanedialog.h \

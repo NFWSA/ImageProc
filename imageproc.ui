@@ -81,7 +81,7 @@
     <addaction name="menu_Sharp"/>
     <addaction name="action_Template"/>
     <addaction name="separator"/>
-    <addaction name="actionBMP2TXT"/>
+    <addaction name="action_BMP2TXT"/>
    </widget>
    <addaction name="menu_File"/>
    <addaction name="menu_Edit"/>
@@ -117,7 +117,7 @@
     <string>位平面显示(&amp;P)</string>
    </property>
   </action>
-  <action name="actionBMP2TXT">
+  <action name="action_BMP2TXT">
    <property name="text">
     <string>BMP2TXT(&amp;B)</string>
    </property>

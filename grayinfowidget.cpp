@@ -1,6 +1,5 @@
 #include "grayinfowidget.h"
 #include <cmath>
-#include <QDebug>
 
 const int grayHeight = 500;
 

@@ -1,4 +1,3 @@
-#include "mainwindow.h"
 #include "grayinfowidget.h"
 #include "imagewidget.h"
 #include "imageproc.h"
